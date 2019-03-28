@@ -48,14 +48,14 @@ public class Solution
         char[] ch=s.toCharArray(); 
         int n = ch.length-1; 
         //System.out.println(ch[n-2]);
-        
+        //int k = 0;
         if(ch[n-1]=='A')
         {
-            if(ch[0]=='1' && ch[1]=='2'){ch[0]=ch[1]=0;}
+            if(ch[0]=='1' & ch[1]=='2'){ch[0]='0';ch[1]='0';}
         }
         else if(ch[n-1]=='P')
         {
-            if(ch[0]!='1' && ch[1]!='2'){ch[0]+=1;ch[1]+=2;}
+            if(ch[0]!='1' | ch[1]!='2'){ch[0]+=1;ch[1]+=2;}
             //System.out.println(n);
         }
         char[] ch1= new  char[n-1];
