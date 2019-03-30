@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+public class Solution 
+{
+    public static void main (String args[]) 
+        throws Exception 
+    {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+        Scanner sc = new Scanner(System.in);
+        double t1 = sc.nextDouble();
+        double t2 = sc.nextDouble();
+        double x = sc.nextDouble();
+        
+
+        sc.close();//System.out.println(x);
+        
+        double L[][] = new double[][]{{2,0},{0,x}};
+        double M[][] = new double[][] { { 2*Math.cos(t1), 2*Math.sin(t1)  }, { x * Math.cos(t1+t2), x * Math.sin(t1+t2) } };
+        //double M[][] = new double[][] { { Math.cos(t1), Math.sin(t1)  }, { Math.cos(t2), Math.sin(t2) } };
+        double C[][] = new double[2][2];
+
+        int aRows = L.length;
+        int aColumns = L[0].length;
+        int bRows = M.length;
+        int bColumns = M[0].length;
+
+        //for (int i = 0; i < aRows; i++) { // aRow
+          //  for (int j = 0; j < bColumns; j++) {System.out.print(M[i][j]+" ");}System.out.println();}
+
+        double ex=0,ey=0;
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        for (int i = 0; i < aRows; i++) { // aRow
+            for (int j = 0; j < bColumns; j++) { // bColumn
+                for (int k = 0; k < aColumns; k++) { // aColumn
+                    C[i][j] += L[i][k] * M[k][j];
+                }
+            }
+        }
+
+        for(int i=0;i<M.length;i++)
+        {
+            ex+=M[i][0]; ey+=M[i][1];
+        }
+        //ex = M[0][0]+M[1][1];
+        //ey = M[1][0] + M[0][1]; 
+        System.out.println(df.format(ex)+" "+ df.format(ey));
+
+
+
+    }
+}
+
