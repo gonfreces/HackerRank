@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+public class Solution 
+{
+    public static void main(String args[] ) 
+        throws Exception 
+    {
+        Scanner scanner = new Scanner(System.in);
+        
+        int someNumber = 0;
+        int i = 0;
+        String textString1 = null;
+        String textString2 = null;
+
+        someNumber = Integer.parseInt(scanner.nextLine().trim());
+        textString1 = scanner.nextLine().trim();
+        textString2 = scanner.nextLine().trim();
+        //System.out.print(textString1);
+        for (i = 0; i <= someNumber; i++)
+        {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        
+        System.out.println("");
+        
+        if (textString1.equals(textString2))
+        {
+            System.out.println ("True");   
+        }
+        else
+        {
+            System.out.println ("False");
+        }
+    }
+}
+
