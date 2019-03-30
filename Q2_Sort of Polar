@@ -31,12 +31,17 @@ public class Solution
         Integer b[][] = new Integer[l][2];
         Integer c[][] = new Integer[l][2];
         Integer d[][] = new Integer[l][2];
-        int k1=0, temp=0;
+        Integer e[][] = new Integer[l][2];
+        Integer f[][] = new Integer[l][2];
+        int k1=0, temp=0, k5=0, k6=0;
         int k2=0; int k3=0; int k4=0; double f1=0;double f2=0;
         for(int i=0;i<p.length;i++)//seperate quadrant wise
         {
-            if((p[i][0]>0) && p[i][1]>0){a[k1][0]=p[i][0];a[k1][1]=p[i][1];k1++;} //Quadrant 1
-            if((p[i][0]<0) && p[i][1]>0){b[k2][0]=p[i][0];b[k2][1]=p[i][1];k2++;} //Quadrant 2
+            if((p[i][0]==0) && p[i][1] == 0){System.out.println(p[i][0]+" "+p[i][1]);;} //(0,0) case handling
+            if(p[i][0]==0 && p[i][1]>0){e[k5][0]=p[i][0];e[k5][1]=p[i][1];k5++;} //x=0 case handling 90 deg
+            if(p[i][0]==0 && p[i][1]<0){f[k6][0]=p[i][0];f[k6][1]=p[i][1];k6++;} //x=0 case handling 270 deg
+            if((p[i][0]>0) && p[i][1]>=0){a[k1][0]=p[i][0];a[k1][1]=p[i][1];k1++;} //Quadrant 1
+            if((p[i][0]<0) && p[i][1]>=0){b[k2][0]=p[i][0];b[k2][1]=p[i][1];k2++;} //Quadrant 2
             if((p[i][0]<0) && p[i][1]<0){c[k3][0]=p[i][0];c[k3][1]=p[i][1];k3++;} //Quadrant 3
             if((p[i][0]>0) && p[i][1]<0){d[k4][0]=p[i][0];d[k4][1]=p[i][1];k4++;} //Quadrant 4
         }
@@ -48,10 +53,7 @@ public class Solution
         {
             for(int i=0;i<k1-1;i++)
             {
-                double n1 =a[i][1]; //System.out.println(n1);
-                double n2 = a[i][0];//System.out.println(n2);
-                //f1 = n1/n
-                if(a[i][0]==0){f1=;}
+                
                 f1= ((double)(a[i][1])/ (double)(a[i][0])); 
                 f2= (double)a[i+1][1]/ (double)a[i+1][0]; //System.out.println(f1+" "+f2);
                 if(f1>f2)
@@ -59,9 +61,35 @@ public class Solution
                     temp = a[i][1]; a[i][1]=a[i+1][1]; a[i+1][1]=temp;//y coordinates swap
                     temp = a[i][0]; a[i][0]=a[i+1][0]; a[i+1][0]=temp;//x coordinates swap
                 }
+                else if(f1==f2) //handling same angle case
+                {
+                    int d1 = a[i][0]*a[i][0]+a[i][1]*a[i][1];int d2 = a[i+1][0]*a[i+1][0]+a[i+1][1]*a[i+1][1];
+                    if(d1>d2)
+                    {
+                        temp = a[i][1]; a[i][1]=a[i+1][1]; a[i+1][1]=temp;//y coordinates swap
+                        temp = a[i][0]; a[i][0]=a[i+1][0]; a[i+1][0]=temp;//x coordinates swap
+                    }
+                }
             }
         }
         for (int i = 0; i < k1; i++) { for (int j = 0; j < 2; j++){ System.out.print(a[i][j]+" ");}System.out.println();}
+        
+        for (int i = 0; i < k5 - 1; i++) // sorting 90 deg points
+        {
+            if (e[i][1] > e[i + 1][1]) {
+                temp = e[i][1];
+                e[i][1] = e[i + 1][1];
+                e[i + 1][1] = temp;
+            }
+        }
+
+        for (int i = 0; i < k5; i++) 
+        {
+            System.out.println(e[i][0] + " " + e[i][1]);
+        }
+
+        
+
         if ((k2 - 1) > 0) {
             for (int i = 0; i < k2 - 1; i++) 
             {
@@ -77,17 +105,32 @@ public class Solution
                     b[i][0] = b[i + 1][0];
                     b[i + 1][0] = temp;// x coordinates swap
                 }
+                else if (f1 == f2) // handling same angle case
+                {
+                    int d1 = b[i][0] * b[i][0] + b[i][1] * b[i][1];
+                    int d2 = b[i + 1][0] * b[i + 1][0] + b[i + 1][1] * b[i + 1][1];
+                    if (d1 > d2) {
+                        temp = b[i][1];
+                        b[i][1] = b[i + 1][1];
+                        b[i + 1][1] = temp;// y coordinates swap
+                        temp = b[i][0];
+                        b[i][0] = b[i + 1][0];
+                        b[i + 1][0] = temp;// x coordinates swap
+                    }
+                }
             }
         }
         for (int i = 0; i < k2; i++) { for (int j = 0; j < 2; j++){ System.out.print(b[i][j]+" ");}
             System.out.println();}
 
         if ((k3 - 1) > 0) {
-            for (int i = 0; i < k3 - 1; i++) {
+            for (int i = 0; i < k3 - 1; i++) 
+            {
 
                 f1 = ((double) (c[i][1]) / (double) (c[i][0]));
                 f2 = (double) c[i + 1][1] / (double) c[i + 1][0];
-                if (f1 > f2) {
+                if (f1 > f2) 
+                {
                     temp = c[i][1];
                     c[i][1] = c[i + 1][1];
                     c[i + 1][1] = temp;// y coordinates swap
@@ -95,23 +138,64 @@ public class Solution
                     c[i][0] = c[i + 1][0];
                     c[i + 1][0] = temp;// x coordinates swap
                 }
+                else if (f1 == f2) // handling same angle case
+                {
+                    int d1 = c[i][0] * c[i][0] + c[i][1] * c[i][1];
+                    int d2 = c[i + 1][0] * c[i + 1][0] + c[i + 1][1] * c[i + 1][1];
+                    if (d1 > d2) {
+                        temp = c[i][1];
+                        c[i][1] = c[i + 1][1];
+                        c[i + 1][1] = temp;// y coordinates swap
+                        temp = c[i][0];
+                        c[i][0] = c[i + 1][0];
+                        c[i + 1][0] = temp;// x coordinates swap
+                    }
+                }
             }
         }
         for (int i = 0; i < k3; i++) {for (int j = 0; j < 2; j++) { System.out.print(c[i][j]+" ");}
             System.out.println();}
+
+        
+        for (int i = 0; i < k6-1; i++)   //sorting 270 deg points
+        {
+            if (Math.abs(f[i][1]) > Math.abs(f[i+1][1])) 
+                {
+                    temp = f[i][1];
+                    f[i][1] = f[i + 1][1];
+                    f[i + 1][1] = temp;
+                }
+        }
+
+        for (int i = 0; i < k6; i++) {System.out.println(f[i][0]+" "+f[i][1]);}   
+        
 
         if ((k4 - 1) > 0) {
             for (int i = 0; i < k4 - 1; i++) {
 
                 f1 = ((double) (d[i][1]) / (double) (d[i][0]));
                 f2 = (double) d[i + 1][1] / (double) d[i + 1][0];
-                if (f1 > f2) {
+                if (f1 > f2) 
+                {
                     temp = d[i][1];
                     d[i][1] = d[i + 1][1];
                     d[i + 1][1] = temp;// y coordinates swap
                     temp = d[i][0];
                     d[i][0] = d[i + 1][0];
                     d[i + 1][0] = temp;// x coordinates swap
+                }
+                else if (f1 == f2) // handling same angle case
+                {
+                    int d1 = d[i][0] * d[i][0] + d[i][1] * d[i][1];
+                    int d2 = d[i + 1][0] * d[i + 1][0] + d[i + 1][1] * d[i + 1][1];
+                    if (d1 > d2) {
+                        temp = d[i][1];
+                        d[i][1] = d[i + 1][1];
+                        d[i + 1][1] = temp;// y coordinates swap
+                        temp = d[i][0];
+                        d[i][0] = d[i + 1][0];
+                        d[i + 1][0] = temp;// x coordinates swap
+                    }
                 }
             }
         }
