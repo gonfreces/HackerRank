@@ -1,0 +1,126 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+public class Solution 
+{
+    public static void main(String args[]) 
+        throws Exception 
+    {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+
+        //length and array as input
+        //four quadrants division
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int[][] p = new int[n][2];
+
+        //String[] arrItems = scanner.nextLine().split(" ");
+        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < n; i++) { for (int j = 0; j < 2; j++){ p[i][j]=sc.nextInt();}}
+            
+        sc.close();
+        //for (int i = 0; i < n; i++) { for (int j = 0; j < 2; j++){ System.out.println(p[i][j]);}}
+        //Integer p[][] = new Integer[l][2];
+        int l=p.length;
+        Integer a[][] = new Integer[l][2];
+        Integer b[][] = new Integer[l][2];
+        Integer c[][] = new Integer[l][2];
+        Integer d[][] = new Integer[l][2];
+        int k1=0, temp=0;
+        int k2=0; int k3=0; int k4=0; double f1=0;double f2=0;
+        for(int i=0;i<p.length;i++)//seperate quadrant wise
+        {
+            if((p[i][0]>0) && p[i][1]>0){a[k1][0]=p[i][0];a[k1][1]=p[i][1];k1++;} //Quadrant 1
+            if((p[i][0]<0) && p[i][1]>0){b[k2][0]=p[i][0];b[k2][1]=p[i][1];k2++;} //Quadrant 2
+            if((p[i][0]<0) && p[i][1]<0){c[k3][0]=p[i][0];c[k3][1]=p[i][1];k3++;} //Quadrant 3
+            if((p[i][0]>0) && p[i][1]<0){d[k4][0]=p[i][0];d[k4][1]=p[i][1];k4++;} //Quadrant 4
+        }
+        //for (int i = 0; i < a.length; i++) { for (int j = 0; j < 2; j++){ if(a[i][j]!=0){System.out.println(a[i][j]);}}}
+        //working
+        //System.out.println(a[0][1]+" "+a[0][0]+" "+((double)a[0][1]/ (double)a[0][0]));
+        //System.out.println(k1);
+        if((k1-1)>0)
+        {
+            for(int i=0;i<k1-1;i++)
+            {
+                double n1 =a[i][1]; //System.out.println(n1);
+                double n2 = a[i][0];//System.out.println(n2);
+                //f1 = n1/n
+                if(a[i][0]==0){f1=;}
+                f1= ((double)(a[i][1])/ (double)(a[i][0])); 
+                f2= (double)a[i+1][1]/ (double)a[i+1][0]; //System.out.println(f1+" "+f2);
+                if(f1>f2)
+                {
+                    temp = a[i][1]; a[i][1]=a[i+1][1]; a[i+1][1]=temp;//y coordinates swap
+                    temp = a[i][0]; a[i][0]=a[i+1][0]; a[i+1][0]=temp;//x coordinates swap
+                }
+            }
+        }
+        for (int i = 0; i < k1; i++) { for (int j = 0; j < 2; j++){ System.out.print(a[i][j]+" ");}System.out.println();}
+        if ((k2 - 1) > 0) {
+            for (int i = 0; i < k2 - 1; i++) 
+            {
+                
+                
+                f1 = ((double) (b[i][1]) / (double) (b[i][0]));
+                f2 = (double) b[i + 1][1] / (double) b[i + 1][0];
+                if (f1 > f2) {
+                    temp = b[i][1];
+                    b[i][1] = b[i + 1][1];
+                    b[i + 1][1] = temp;// y coordinates swap
+                    temp = b[i][0];
+                    b[i][0] = b[i + 1][0];
+                    b[i + 1][0] = temp;// x coordinates swap
+                }
+            }
+        }
+        for (int i = 0; i < k2; i++) { for (int j = 0; j < 2; j++){ System.out.print(b[i][j]+" ");}
+            System.out.println();}
+
+        if ((k3 - 1) > 0) {
+            for (int i = 0; i < k3 - 1; i++) {
+
+                f1 = ((double) (c[i][1]) / (double) (c[i][0]));
+                f2 = (double) c[i + 1][1] / (double) c[i + 1][0];
+                if (f1 > f2) {
+                    temp = c[i][1];
+                    c[i][1] = c[i + 1][1];
+                    c[i + 1][1] = temp;// y coordinates swap
+                    temp = c[i][0];
+                    c[i][0] = c[i + 1][0];
+                    c[i + 1][0] = temp;// x coordinates swap
+                }
+            }
+        }
+        for (int i = 0; i < k3; i++) {for (int j = 0; j < 2; j++) { System.out.print(c[i][j]+" ");}
+            System.out.println();}
+
+        if ((k4 - 1) > 0) {
+            for (int i = 0; i < k4 - 1; i++) {
+
+                f1 = ((double) (d[i][1]) / (double) (d[i][0]));
+                f2 = (double) d[i + 1][1] / (double) d[i + 1][0];
+                if (f1 > f2) {
+                    temp = d[i][1];
+                    d[i][1] = d[i + 1][1];
+                    d[i + 1][1] = temp;// y coordinates swap
+                    temp = d[i][0];
+                    d[i][0] = d[i + 1][0];
+                    d[i + 1][0] = temp;// x coordinates swap
+                }
+            }
+        }
+        for (int i = 0; i < k4; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print(d[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
